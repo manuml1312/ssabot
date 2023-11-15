@@ -11,16 +11,21 @@ openai.api_key = st.secrets.openai_key
 st.title("📝 Passenger Car Emissions Q & A Chatbot ") 
 
 with st.sidebar:
-  st.write("""Document Name : PART 86—CONTROL OF EMISSIONS FROM NEW AND IN-USE HIGHWAY VEHICLES AND ENGINES \n 
+  st.write("""Document Name : SUMMARY DESCRIPTION
+OF THE FEDERAL MOTOR
+VEHICLE SAFETY
+STANDARDS
+(Title 49 Code of Federal
+Regulations Part 571) \n 
                   Document URL: https://www.ecfr.gov/current/title-40/part-86""")
 if "messages" not in st.session_state.keys(): # Initialize the chat messages history
     st.session_state.messages = [
         {"role": "assistant", "content": "Mention your queries!"}
     ]
     
-llm = OpenAI(model="gpt-3.5-turbo", temperature=0.3, system_prompt="""You are an expert in passenger car emission regulation.Answer
-there queries about the regulations and the related details from the document given.Keep the answers technical and explain the details. Keep your answers accurate and based on 
-                   facts – do not hallucinate features.""")
+llm = OpenAI(model="gpt-3.5-turbo", temperature=0.3, system_prompt="""You are an expert in federal motor vehicle safety standards.Answer
+the queries about the regulations and retrieve the Safety Standard codes that are related to the query. Keep your answers accurate and based on 
+                   facts from the document supplied – do not hallucinate features.""")
 
 service_context = ServiceContext.from_defaults(llm=llm) 
 documents=SimpleDirectoryReader(input_dir="./data/")
