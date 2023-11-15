@@ -25,14 +25,18 @@ there queries about the regulations and the related details from the context giv
 service_context = ServiceContext.from_defaults(llm=llm) 
 documents=SimpleDirectoryReader(input_dir="./data/")
 documents=documents.load_data() 
-index = VectorStoreIndex.from_documents(documents, service_context=service_context)
-index.storage_context.persist()
+# index = VectorStoreIndex.from_documents(documents, service_context=service_context)
+# index.storage_context.persist()
 
-if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
-        st.session_state.chat_engine = index.as_chat_engine(chat_mode="condense_question", verbose=True)
+if "chat_engine" not in st.session_state.keys():# Initialize the chat engine
+  index = VectorStoreIndex.from_documents(documents, service_context=service_context)
+  index.storage_context.persist()
+  st.session_state.chat_engine = index.as_chat_engine(chat_mode="condense_question", verbose=True)
+# else:
+#   storage_context=StorageContext.from_defaults(persist_dir="./storage")
+#   index=load_index_from_storage(storage_context)
+  
 
-
-# if prompt := st.chat_input("Your question"): # Prompt for user input and save to chat history
 if prompt :=st.text_input("How can i help you today?",placeholder="Your query here",disabled= not documents):
     st.session_state.messages.append({"role": "user", "content": prompt})
 
