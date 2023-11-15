@@ -11,8 +11,8 @@ openai.api_key = st.secrets.openai_key
 st.title("📝 Passenger Car Emissions Q & A Chatbot ") 
 
 with st.sidebar:
-  st.write("Document Name : PART 86—CONTROL OF EMISSIONS FROM NEW AND IN-USE HIGHWAY VEHICLES AND ENGINES \n 
-  Document URL: https://www.ecfr.gov/current/title-40/part-86")
+  st.write("""Document Name : PART 86—CONTROL OF EMISSIONS FROM NEW AND IN-USE HIGHWAY VEHICLES AND ENGINES \n 
+                  Document URL: https://www.ecfr.gov/current/title-40/part-86""")
 if "messages" not in st.session_state.keys(): # Initialize the chat messages history
     st.session_state.messages = [
         {"role": "assistant", "content": "Mention your queries!"}
