@@ -23,10 +23,15 @@ if "messages" not in st.session_state.keys(): # Initialize the chat messages his
         {"role": "assistant", "content": "Mention your queries!"}
     ]
     
-llm = OpenAI(model="gpt-3.5-turbo", temperature=0.3, system_prompt="""You are an expert in PART 86—CONTROL 
-OF EMISSIONS FROM NEW AND IN-USE HIGHWAY VEHICLES AND ENGINES of the Code of
-Federal Regulations.Answer the queries about the regulations from the document supplied.Mention the sub-part, 
-sections and sub-sections to where the answers are present.Keep your answers accurate and based on facts – do not hallucinate features.""")
+# llm = OpenAI(model="gpt-3.5-turbo", temperature=0.3, system_prompt="""You are an expert in PART 86—CONTROL 
+# OF EMISSIONS FROM NEW AND IN-USE HIGHWAY VEHICLES AND ENGINES of the Code of
+# Federal Regulations.Answer the queries about the regulations from the document supplied.Mention the sub-part, 
+# sections and sub-sections to where the answers are present.Keep your answers accurate and based on facts – do not hallucinate features.""")
+
+llm=OpenAI(system_prompt="""Explore inquiries regarding regulations in PART 86—CONTROL OF EMISSIONS FROM NEW AND 
+IN-USE HIGHWAY VEHICLES AND ENGINES within the Code of Federal Regulations. Specify the sub-part, sections, 
+and sub-sections containing relevant information. Provide fact-based and accurate responses,
+avoiding speculative details.""",model="gpt-3.5-turbo",temperature=0.3)
 
 service_context = ServiceContext.from_defaults(llm=llm) 
 documents=SimpleDirectoryReader(input_dir="./data/")
