@@ -48,14 +48,23 @@ if "chat_engine" not in st.session_state.keys():# Initialize the chat engine
   index = VectorStoreIndex.from_documents(documents, service_context=service_context)
   index.storage_context.persist()
   st.session_state.chat_engine = index.as_chat_engine(chat_mode="condense_question", verbose=True)
-# else:
-#   storage_context=StorageContext.from_defaults(persist_dir="./storage")
-#   index=load_index_from_storage(storage_context)
   
 
 if prompt :=st.text_input("How can i help you today?",placeholder="Your query here",disabled= not documents):
-  # prompt="Provide the citations and elucidate the concepts of"+str(prompt)+ " Include detailed information from relevant sections and sub-sections to ensure a comprehensive response"
+  prompt = f"Reframe the following question to extract the maximum content out of a chatbot:\n{prompt}"
+    
+    # Specify the OpenAI GPT-3.5 engine and make the API call
+  response = openai.Completion.create(
+        engine="text-davinci-003",  # You can choose a different engine if needed
+        prompt=prompt,
+        max_tokens=150,  # Adjust as needed
+        temperature=0.7,  # Adjust as needed
+        stop=None  # You can specify additional stop words if needed
+    )
+  prompt = response['choices'][0]['text'].strip()
   st.session_state.messages.append({"role": "user", "content": prompt})
+
+    
 
 # If last message is not from assistant, generate a new response
 if st.session_state.messages[-1]["role"] != "assistant":
