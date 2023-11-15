@@ -8,7 +8,7 @@ from llama_index.llms import OpenAI
 
 openai.api_key = st.secrets.openai_key 
 
-st.title("📝 Federal Motor Vehicle Safety Standards Q & A Chatbot ") 
+st.title("📝 PART 86—CONTROL OF EMISSIONS FROM NEW AND IN-USE HIGHWAY VEHICLES AND ENGINES Q & A Chatbot ") 
 
 with st.sidebar:
   st.write("""Document Name : SUMMARY DESCRIPTION
