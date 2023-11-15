@@ -29,8 +29,8 @@ if "messages" not in st.session_state.keys(): # Initialize the chat messages his
 # sections and sub-sections to where the answers are present.Keep your answers accurate and based on facts – do not hallucinate features.""")
 
 llm=OpenAI(system_prompt="""Explore inquiries regarding regulations in PART 86—CONTROL OF EMISSIONS FROM NEW AND 
-IN-USE HIGHWAY VEHICLES AND ENGINES within the Code of Federal Regulations. Specify the sub-part, sections, 
-and sub-sections containing relevant information. Provide fact-based and accurate responses,
+IN-USE HIGHWAY VEHICLES AND ENGINES within the Code of Federal Regulations. Cite the sub-part, sections, 
+and sub-sections containing relevant information and answer the query by using the respective information. Provide fact-based and accurate responses,
 avoiding speculative details.""",model="gpt-3.5-turbo",temperature=0.3)
 
 # llm=OpenAI(system_prompt="""Delve into questions related to regulations within PART 86—CONTROL OF EMISSIONS 
