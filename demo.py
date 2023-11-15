@@ -54,7 +54,8 @@ if "chat_engine" not in st.session_state.keys():# Initialize the chat engine
   
 
 if prompt :=st.text_input("How can i help you today?",placeholder="Your query here",disabled= not documents):
-    st.session_state.messages.append({"role": "user", "content": prompt})
+  prompt="Provide the citations and elucidate the concepts of"+str(prompt)+ " Include detailed information from relevant sections and sub-sections to ensure a comprehensive response"
+  st.session_state.messages.append({"role": "user", "content": prompt})
 
 # If last message is not from assistant, generate a new response
 if st.session_state.messages[-1]["role"] != "assistant":
