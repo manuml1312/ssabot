@@ -19,7 +19,7 @@ if "messages" not in st.session_state.keys(): # Initialize the chat messages his
     ]
     
 llm = OpenAI(model="gpt-3.5-turbo", temperature=0.3, system_prompt="""You are an expert in passenger car emission regulation.Answer
-there queries about the regulations and the related details from the context given.Keep the answers technical and explain the details. Keep your answers accurate and based on 
+there queries about the regulations and the related details from the document given.Keep the answers technical and explain the details. Keep your answers accurate and based on 
                    facts – do not hallucinate features.""")
 
 service_context = ServiceContext.from_defaults(llm=llm) 
