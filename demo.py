@@ -23,8 +23,8 @@ if "messages" not in st.session_state.keys(): # Initialize the chat messages his
         {"role": "assistant", "content": "Mention your queries!"}
     ]
     
-llm = OpenAI(model="gpt-3.5-turbo", temperature=0.3, system_prompt="""You are an expert in federal motor vehicle safety standards.Answer
-the queries about the regulations and retrieve the Safety Standard codes that are related to the query. Keep your answers accurate and based on 
+llm = OpenAI(model="gpt-3.5-turbo", temperature=0.3, system_prompt="""You are an expert in PART 86—CONTROL OF EMISSIONS FROM NEW AND IN-USE HIGHWAY VEHICLES AND ENGINES of the Code of
+Federal Regulations.Answerthe queries about the regulations and retrieve the Standard codes that are related to the query. Keep your answers accurate and based on 
                    facts from the document supplied – do not hallucinate features.""")
 
 service_context = ServiceContext.from_defaults(llm=llm) 
