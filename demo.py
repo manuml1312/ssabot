@@ -8,7 +8,7 @@ from llama_index.llms import OpenAI
 
 openai.api_key = st.secrets.openai_key 
 
-st.title("📝 Passenger Car Emissions Q & A Chatbot ") 
+st.title("📝 Federal Motor Vehicle Safety Standards Q & A Chatbot ") 
 
 with st.sidebar:
   st.write("""Document Name : SUMMARY DESCRIPTION
@@ -16,8 +16,8 @@ OF THE FEDERAL MOTOR
 VEHICLE SAFETY
 STANDARDS
 (Title 49 Code of Federal
-Regulations Part 571) \n 
-                  Document URL: https://www.ecfr.gov/current/title-40/part-86""")
+Regulations Part 571)""")
+
 if "messages" not in st.session_state.keys(): # Initialize the chat messages history
     st.session_state.messages = [
         {"role": "assistant", "content": "Mention your queries!"}
