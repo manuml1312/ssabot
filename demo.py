@@ -8,7 +8,7 @@ from llama_index.llms import OpenAI
 
 openai.api_key = st.secrets.openai_key 
 
-st.title("📝 PART 86—CONTROL OF EMISSIONS FROM NEW AND IN-USE HIGHWAY VEHICLES AND ENGINES Q & A Chatbot ") 
+st.title("📝 Emission Control for New and In-Use Highway Vehicles Q & A Chatbot ") 
 
 with st.sidebar:
   st.write("""Document Name : PART 86—CONTROL OF EMISSIONS FROM NEW AND IN-USE HIGHWAY VEHICLES AND ENGINES \n 
@@ -19,20 +19,12 @@ if "messages" not in st.session_state.keys(): # Initialize the chat messages his
         {"role": "assistant", "content": "Mention your queries!"}
     ]
     
-# llm = OpenAI(model="gpt-3.5-turbo", temperature=0.3, system_prompt="""You are an expert in PART 86—CONTROL 
-# OF EMISSIONS FROM NEW AND IN-USE HIGHWAY VEHICLES AND ENGINES of the Code of
-# Federal Regulations.Answer the queries about the regulations from the document supplied.Mention the sub-part, 
-# sections and sub-sections to where the answers are present.Keep your answers accurate and based on facts – do not hallucinate features.""")
 
 llm=OpenAI(system_prompt="""Explore inquiries regarding regulations in PART 86—CONTROL OF EMISSIONS FROM NEW AND 
 IN-USE HIGHWAY VEHICLES AND ENGINES within the Code of Federal Regulations. Cite the sub-part, sections, 
 and sub-sections containing relevant information and answer the query by using the respective information. Provide fact-based and accurate responses,
 avoiding speculative details.""",model="gpt-3.5-turbo",temperature=0.3)
 
-# llm=OpenAI(system_prompt="""Delve into questions related to regulations within PART 86—CONTROL OF EMISSIONS 
-# FROM NEW AND IN-USE HIGHWAY VEHICLES AND ENGINES in the Code of Federal Regulations. When responding, 
-# explicitly cite the sub-part ID, section ID, and sub-section ID from which the context is retrieved to
-# ensure clarity and accuracy in the information provided.""",model="gpt-3.5-turbo",temperature=0.3)
 
 service_context = ServiceContext.from_defaults(llm=llm) 
 documents=SimpleDirectoryReader(input_dir="./data/")
