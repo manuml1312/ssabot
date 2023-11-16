@@ -2,7 +2,6 @@ import streamlit as st
 import os
 import openai
 from llama_index import VectorStoreIndex, SimpleDirectoryReader , Document
-from llama_index.embeddings import HuggingFaceEmbedding 
 from llama_index import ServiceContext
 from llama_index.llms import OpenAI
 
