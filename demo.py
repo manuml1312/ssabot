@@ -29,8 +29,6 @@ avoiding speculative details.""",model="gpt-3.5-turbo",temperature=0.3)
 service_context = ServiceContext.from_defaults(llm=llm) 
 documents=SimpleDirectoryReader(input_dir="./data/")
 documents=documents.load_data() 
-# index = VectorStoreIndex.from_documents(documents, service_context=service_context)
-# index.storage_context.persist()
 
 if "chat_engine" not in st.session_state.keys():# Initialize the chat engine
   index = VectorStoreIndex.from_documents(documents, service_context=service_context)
