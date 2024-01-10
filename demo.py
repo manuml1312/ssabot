@@ -1,5 +1,5 @@
 import streamlit as st
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import os
 import openai
 from llama_index import VectorStoreIndex, SimpleDirectoryReader, Document
@@ -13,7 +13,7 @@ from langchain_community.embeddings import OpenAIEmbeddings
 load_dotenv()
 
 # Corrected the method to fetch environment variable
-openai.api_key = os.getenv('OPENAI_API_KEY')
+openai.api_key = st.secrets.openai_key
 
 st.title("Soothsayer Analytics Chatbot")
 
