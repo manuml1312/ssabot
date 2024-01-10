@@ -10,7 +10,7 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.embeddings import OpenAIEmbeddings
 
 # Load environment variables from .env file
-load_dotenv()
+# load_dotenv()
 
 # Corrected the method to fetch environment variable
 openai.api_key = st.secrets.openai_key
