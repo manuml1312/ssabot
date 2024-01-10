@@ -1,48 +1,52 @@
-import streamlit as st 
+import streamlit as st
 from dotenv import load_dotenv
 import os
 import openai
-from llama_index import VectorStoreIndex, SimpleDirectoryReader , Document
+from llama_index import VectorStoreIndex, SimpleDirectoryReader, Document
 from llama_index import ServiceContext
 from llama_index.llms import OpenAI
+from langchain.document_loaders import UnstructuredURLLoader
+from langchain.text_splitter import CharacterTextSplitter
+from langchain_community.embeddings import OpenAIEmbeddings
 
-# openai.api_key = st.secrets.openai_key 
+# Load environment variables from .env file
 load_dotenv()
-openai.api_key=os.getenv['OPENAI_API_KEY']
 
-st.title("Soothsayer Analytics Chatbot ") 
+# Corrected the method to fetch environment variable
+openai.api_key = os.getenv('OPENAI_API_KEY')
 
-if "messages" not in st.session_state.keys(): # Initialize the chat messages history
+st.title("Soothsayer Analytics Chatbot")
+
+if "messages" not in st.session_state.keys():
     st.session_state.messages = [
         {"role": "assistant", "content": "Mention your queries!"}
     ]
-    
 
-llm=OpenAI(system_prompt="""Explore inquiries regarding the services provided by the company mentioned in the document. Cite the sub-part, sections, 
-and sub-sections containing relevant information and answer the query by using the respective information. Provide fact-based and accurate responses,
-avoiding speculative details.""",model="gpt-3.5-turbo",temperature=0.3)
+llm = OpenAI(system_prompt="""Your system prompt here...""",
+             model="gpt-3.5-turbo",
+             temperature=0.3)
 
+service_context = ServiceContext.from_defaults(llm=llm)
 
-service_context = ServiceContext.from_defaults(llm=llm) 
-documents=SimpleDirectoryReader(input_dir="./data/")
-documents=documents.load_data() 
+urls = []  # You might want to add URLs here
+loaders = UnstructuredURLLoader(urls=urls)
+data = loaders.load()
+text_splitter = CharacterTextSplitter(separator="\n", chunk_size=600, chunk_overlap=100)
+documents = text_splitter.split_documents(data)
+embeddings = OpenAIEmbeddings()
 
-if "chat_engine" not in st.session_state.keys():# Initialize the chat engine
-  index = VectorStoreIndex.from_documents(documents, service_context=service_context)
-  index.storage_context.persist()
-  st.session_state.chat_engine = index.as_chat_engine(chat_mode="condense_question", verbose=True)
-  
+if "chat_engine" not in st.session_state.keys():
+    index = VectorStoreIndex.from_documents(documents, service_context=service_context)
+    index.storage_context.persist()
+    st.session_state.chat_engine = index.as_chat_engine(chat_mode="condense_question", verbose=True)
 
-if prompt :=st.text_input("How can i help you today?",placeholder="Your query here",disabled= not documents):
-  prompt="Provide the citations and elucidate the concepts of"+str(prompt)+"Include detailed information from relevant sections and sub-sections to ensure a comprehensive response."
-  st.session_state.messages.append({"role": "user", "content": prompt})
+if prompt := st.text_input("How can I help you today?", placeholder="Your query here", disabled=not documents):
+    prompt = "Provide the citations and elucidate the concepts of " + str(prompt) + ". Include detailed information from relevant sections and sub-sections to ensure a comprehensive response."
+    st.session_state.messages.append({"role": "user", "content": prompt})
 
-    
-# If last message is not from assistant, generate a new response
 if st.session_state.messages[-1]["role"] != "assistant":
-    with st.chat_message("assistant"):
-        with st.spinner("Thinking..."):
-            response = st.session_state.chat_engine.chat(prompt)
-            st.write(response.response)
-            message = {"role": "assistant", "content": response.response}
-            st.session_state.messages.append(message)
+    with st.spinner("Thinking..."):
+        response = st.session_state.chat_engine.chat(prompt)
+        st.write(response.response)
+        message = {"role": "assistant", "content": response.response}
+        st.session_state.messages.append(message)
