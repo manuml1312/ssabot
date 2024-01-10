@@ -1,4 +1,5 @@
 import streamlit as st 
+from dotenv import load_dotenv
 import os
 import openai
 from llama_index import VectorStoreIndex, SimpleDirectoryReader , Document
@@ -6,7 +7,8 @@ from llama_index import ServiceContext
 from llama_index.llms import OpenAI
 
 # openai.api_key = st.secrets.openai_key 
-openai.api_key=os['Open_AI_key']
+load_dotenv()
+openai.api_key=os.getenv['OPENAI_API_KEY']
 
 st.title("Soothsayer Analytics Chatbot ") 
 
