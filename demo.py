@@ -28,7 +28,7 @@ llm = OpenAI(system_prompt="""Your system prompt here...""",
 
 service_context = ServiceContext.from_defaults(llm=llm)
 
-urls = []  # You might want to add URLs here
+urls = ["https://soothsayeranalytics.com"]  # You might want to add URLs here
 loaders = UnstructuredURLLoader(urls=urls)
 data = loaders.load()
 text_splitter = CharacterTextSplitter(separator="\n", chunk_size=600, chunk_overlap=100)
