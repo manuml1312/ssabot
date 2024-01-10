@@ -12,6 +12,7 @@ tensorflow
 flax
 llama_hub
 openai
+pep517
 dotenv
 langchain
 langchain_community
