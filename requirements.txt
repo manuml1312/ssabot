@@ -13,3 +13,6 @@ flax
 llama_hub
 openai
 dotenv
+langchain
+langchain_community
+sentence_transformers
