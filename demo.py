@@ -5,13 +5,10 @@ from llama_index import VectorStoreIndex, SimpleDirectoryReader , Document
 from llama_index import ServiceContext
 from llama_index.llms import OpenAI
 
-openai.api_key = st.secrets.openai_key 
+# openai.api_key = st.secrets.openai_key 
+openai.api_key=os['Open_AI_key']
 
-st.title("📝 Emission Control for New and In-Use Highway Vehicles Q & A Chatbot ") 
-
-with st.sidebar:
-  st.write("""Document Name : PART 86—CONTROL OF EMISSIONS FROM NEW AND IN-USE HIGHWAY VEHICLES AND ENGINES \n 
-  Document Link: https://drafting.ecfr.gov/current/title-40/part-86""")
+st.title("Soothsayer Analytics Chatbot ") 
 
 if "messages" not in st.session_state.keys(): # Initialize the chat messages history
     st.session_state.messages = [
@@ -19,8 +16,7 @@ if "messages" not in st.session_state.keys(): # Initialize the chat messages his
     ]
     
 
-llm=OpenAI(system_prompt="""Explore inquiries regarding regulations in PART 86—CONTROL OF EMISSIONS FROM NEW AND 
-IN-USE HIGHWAY VEHICLES AND ENGINES within the Code of Federal Regulations. Cite the sub-part, sections, 
+llm=OpenAI(system_prompt="""Explore inquiries regarding the services provided by the company mentioned in the document. Cite the sub-part, sections, 
 and sub-sections containing relevant information and answer the query by using the respective information. Provide fact-based and accurate responses,
 avoiding speculative details.""",model="gpt-3.5-turbo",temperature=0.3)
 
