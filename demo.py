@@ -13,7 +13,7 @@ from langchain_community.embeddings import OpenAIEmbeddings
 # load_dotenv()
 
 # Corrected the method to fetch environment variable
-openai.api_key = st.secrets.openai_key
+openai_api_key = st.secrets.openai_key
 
 st.title("Soothsayer Analytics Chatbot")
 
@@ -25,7 +25,7 @@ if "messages" not in st.session_state.keys():
 llm = OpenAI(system_prompt="""You are the expert at the services provided and offered by Soothsayer Analytics in the Data Science and Machine Learning domain.
 Answer the questions asked by the user in a detail way without missing any details.If you dont know the answer just say you dont know.""",
              model="gpt-3.5-turbo",
-             temperature=0.3)
+             temperature=0.3,openai_api_key=openai_api_key)
 
 service_context = ServiceContext.from_defaults(llm=llm)
 
@@ -34,7 +34,7 @@ loaders = UnstructuredURLLoader(urls=urls)
 data = loaders.load()
 text_splitter = CharacterTextSplitter(separator="\n", chunk_size=600, chunk_overlap=100)
 documents = text_splitter.split_documents(data)
-embeddings = OpenAIEmbeddings()
+embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
 
 if "chat_engine" not in st.session_state.keys():
     index = VectorStoreIndex.from_documents(documents, service_context=service_context)
