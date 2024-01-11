@@ -22,7 +22,8 @@ if "messages" not in st.session_state.keys():
         {"role": "assistant", "content": "Mention your queries!"}
     ]
 
-llm = OpenAI(system_prompt="""Your system prompt here...""",
+llm = OpenAI(system_prompt="""You are the expert at the services provided and offered by Soothsayer Analytics in the Data Science and Machine Learning domain.
+Answer the questions asked by the user in a detail way without missing any details.If you dont know the answer just say you dont know.""",
              model="gpt-3.5-turbo",
              temperature=0.3)
 
