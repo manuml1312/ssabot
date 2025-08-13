@@ -15,14 +15,14 @@ from langchain_community.embeddings import OpenAIEmbeddings
 # Corrected the method to fetch environment variable
 openai_api_key = st.secrets.openai_key
 
-st.title("Soothsayer Analytics Chatbot")
+st.title("Chatbot")
 
 if "messages" not in st.session_state.keys():
     st.session_state.messages = [
         {"role": "assistant", "content": "Mention your queries!"}
     ]
 
-llm = OpenAI(system_prompt="""You are the expert at the services provided and offered by Soothsayer Analytics in the Data Science and Machine Learning domain.
+llm = OpenAI(system_prompt="""You are the expert at the services provided and offered in Data Science and Machine Learning domain.
 Answer the questions asked by the user in a detail way without missing any details.If you dont know the answer just say you dont know.""",
              model="gpt-3.5-turbo",
              temperature=0.3,openai_api_key=openai_api_key)
