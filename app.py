@@ -29,7 +29,7 @@ Answer the questions asked by the user in a detail way without missing any detai
 
 service_context = ServiceContext.from_defaults(llm=llm)
 
-urls = ["https://soothsayeranalytics.com"]  # You might want to add URLs here
+urls = ["https://amazon.com"]  # You might want to add URLs here
 loaders = UnstructuredURLLoader(urls=urls)
 data = loaders.load()
 text_splitter = CharacterTextSplitter(separator="\n", chunk_size=600, chunk_overlap=100)
